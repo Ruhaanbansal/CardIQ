@@ -1,0 +1,11 @@
+{
+  "name": "@cardiq/eslint-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "eslint": "^8.56.0"
+  }
+}

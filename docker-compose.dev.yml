@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/backend.Dockerfile
+      target: development
+    container_name: cardiq_backend_dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/backend:/app/apps/backend
+      - ./packages:/app/packages
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/frontend.Dockerfile
+      target: development
+    container_name: cardiq_frontend_dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/frontend:/app/apps/frontend
+      - ./packages:/app/packages
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
+  admin:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/admin.Dockerfile
+      target: development
+    container_name: cardiq_admin_dev
+    ports:
+      - "3002:3000"
+    volumes:
+      - ./apps/admin:/app/apps/admin
+      - ./packages:/app/packages
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend

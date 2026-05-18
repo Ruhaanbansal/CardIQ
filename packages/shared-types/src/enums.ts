@@ -1,0 +1,55 @@
+export enum CardNetwork {
+  VISA = 'VISA',
+  MASTERCARD = 'MASTERCARD',
+  RUPAY = 'RUPAY',
+  AMEX = 'AMEX',
+  DINERS_CLUB = 'DINERS_CLUB',
+  DISCOVER = 'DISCOVER'
+}
+
+export enum CardType {
+  CREDIT = 'CREDIT',
+  DEBIT = 'DEBIT',
+  PREPAID = 'PREPAID'
+}
+
+export enum CardTier {
+  ENTRY = 'ENTRY',
+  MID_RANGE = 'MID_RANGE',
+  PREMIUM = 'PREMIUM',
+  SUPER_PREMIUM = 'SUPER_PREMIUM',
+  INVITE_ONLY = 'INVITE_ONLY'
+}
+
+export enum RewardType {
+  CASHBACK = 'CASHBACK',
+  REWARD_POINTS = 'REWARD_POINTS',
+  AIRMILES = 'AIRMILES',
+  COBRAND_POINTS = 'COBRAND_POINTS'
+}
+
+export enum MerchantCategory {
+  FOOD_DINING = 'FOOD_DINING',
+  TRAVEL = 'TRAVEL',
+  SHOPPING = 'SHOPPING',
+  ENTERTAINMENT = 'ENTERTAINMENT',
+  UTILITIES = 'UTILITIES',
+  GROCERY = 'GROCERY',
+  FUEL = 'FUEL',
+  EDUCATION = 'EDUCATION',
+  HEALTHCARE = 'HEALTHCARE',
+  OTHERS = 'OTHERS'
+}
+
+export enum UserRole {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  SUPER_ADMIN = 'SUPER_ADMIN'
+}
+
+export enum FeatureFlagEnvironment {
+  DEVELOPMENT = 'DEVELOPMENT',
+  STAGING = 'STAGING',
+  PRODUCTION = 'PRODUCTION',
+  ALL = 'ALL'
+}

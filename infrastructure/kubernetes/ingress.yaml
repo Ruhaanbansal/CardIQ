@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cardiq-ingress
+  namespace: cardiq-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-rps: "50" # Edge rate limiting
+spec:
+  tls:
+  - hosts:
+    - cardiq.ai
+    - api.cardiq.ai
+    secretName: cardiq-tls-secret
+  rules:
+  - host: cardiq.ai
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cardiq-frontend-svc
+            port:
+              number: 3000
+  - host: api.cardiq.ai
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cardiq-backend-svc
+            port:
+              number: 3001

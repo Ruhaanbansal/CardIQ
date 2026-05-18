@@ -1,0 +1,57 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-role
+        aws-region: ap-south-1
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+      
+    - name: Build, tag, and push Frontend image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: cardiq-frontend
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -f infrastructure/docker/frontend.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Build, tag, and push Backend image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: cardiq-backend
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -f infrastructure/docker/backend.Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        
+    - name: Update Kubeconfig
+      run: aws eks update-kubeconfig --name cardiq-cluster --region ap-south-1
+      
+    - name: Deploy to EKS
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        # In a real setup, we would use Kustomize or envsubst to patch the IMAGE_TAG into deployments.yaml
+        sed -i "s|<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/cardiq-backend:latest|$ECR_REGISTRY/cardiq-backend:$IMAGE_TAG|g" infrastructure/kubernetes/deployments.yaml
+        sed -i "s|<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/cardiq-frontend:latest|$ECR_REGISTRY/cardiq-frontend:$IMAGE_TAG|g" infrastructure/kubernetes/deployments.yaml
+        kubectl apply -f infrastructure/kubernetes/deployments.yaml
+        kubectl rollout status deployment/cardiq-backend -n cardiq-prod
+        kubectl rollout status deployment/cardiq-frontend -n cardiq-prod

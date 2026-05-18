@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cardiq-backend-svc
+  namespace: cardiq-prod
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "3001"
+    prometheus.io/path: "/metrics"
+spec:
+  type: ClusterIP
+  selector:
+    app: cardiq-backend
+  ports:
+  - port: 3001
+    targetPort: 3001
+    name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cardiq-frontend-svc
+  namespace: cardiq-prod
+spec:
+  type: ClusterIP
+  selector:
+    app: cardiq-frontend
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: http

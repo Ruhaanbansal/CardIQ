@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/backend.Dockerfile
+      target: production
+    container_name: cardiq_backend_prod
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/frontend.Dockerfile
+      target: production
+    container_name: cardiq_frontend_prod
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/admin.Dockerfile
+      target: production
+    container_name: cardiq_admin_prod
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
