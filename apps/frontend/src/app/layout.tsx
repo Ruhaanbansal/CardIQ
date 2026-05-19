@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -9,15 +10,10 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 export const metadata: Metadata = {
   title: 'CardIQ | Smart Credit Card Optimization',
   description: 'AI-powered credit card recommendation and transaction optimization platform.',
-  manifest: '/manifest.json',
-  icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-  },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#1e3a8a', // Deep blue
+  themeColor: '#1e3a8a',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
