@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { TransactionContext } from '../interfaces/rewards.interface';
 import { RewardExclusionEntity } from '../../../database/entities/reward-exclusion.entity';
-import { Repository } from 'typeorm';
+import { Repository, IsNull } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 export interface ExclusionResult {
@@ -24,7 +24,7 @@ export class ExclusionEngineService {
     const exclusions = await this.exclusionRepo.find({
       where: [
         { cardId: context.cardId, isActive: true },
-        { cardId: null, isActive: true } // Global exclusions (e.g. Wallet loads across all cards by law)
+        { cardId: IsNull(), isActive: true } // Global exclusions (e.g. Wallet loads across all cards by law)
       ]
     });
 

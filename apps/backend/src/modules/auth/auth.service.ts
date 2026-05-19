@@ -80,7 +80,7 @@ export class AuthService {
 
     // Success
     user.failedLoginAttempts = 0;
-    user.accountLockedUntil = null;
+    user.accountLockedUntil = undefined;
     user.lastLoginAt = new Date();
     await this.userRepository.save(user);
 

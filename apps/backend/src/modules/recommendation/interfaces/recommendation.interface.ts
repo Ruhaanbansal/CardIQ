@@ -69,6 +69,8 @@ export interface CardScore {
   approvalProbability: number;
   approvalDifficulty: 'easy' | 'moderate' | 'hard' | 'very_hard';
 
+  confidenceScore?: number;
+
   reasoning: string[];
   warnings: string[];
 }

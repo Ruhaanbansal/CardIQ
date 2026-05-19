@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import * as pdfParse from 'pdf-parse';
 import { ScrapeJob, ScrapeResult } from '../interfaces/scraper.interface';
 import axios from 'axios';
-
+import * as pdfParseModule from 'pdf-parse';
+const pdfParse = (pdfParseModule as any).default ?? pdfParseModule;
 @Injectable()
 export class PDFAdapter {
   private readonly logger = new Logger(PDFAdapter.name);

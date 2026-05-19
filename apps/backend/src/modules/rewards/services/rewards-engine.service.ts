@@ -100,7 +100,8 @@ export class RewardsEngineService {
     } else {
       // 3. Base Reward Fallback
       result.appliedRules.push(`Base Reward Rate Applied`);
-      result.rewardType = card.rewardType;
+      const rType = String(card.rewardType).toLowerCase();
+      result.rewardType = (rType.includes('miles') ? 'miles' : rType.includes('point') ? 'points' : 'cashback') as any;
       computedReward = (context.amount * card.baseRewardRate) / 100;
     }
 

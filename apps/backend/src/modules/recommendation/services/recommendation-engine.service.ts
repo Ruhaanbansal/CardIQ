@@ -75,7 +75,7 @@ export class RecommendationEngineService {
         });
         annualValueInr = simulation.totalEffectiveValueInr;
       } catch (err) {
-        this.logger.warn(`Annual simulation failed for card ${card.id}: ${err.message}`);
+        this.logger.warn(`Annual simulation failed for card ${card.id}: ${(err as Error).message}`);
         // Fallback: estimate from base rate
         annualValueInr = analysis.totalAnnualSpend * (Number(card.baseRewardRate) / 100);
       }

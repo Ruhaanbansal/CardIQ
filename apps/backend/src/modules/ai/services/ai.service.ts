@@ -6,8 +6,8 @@ import { AIObservabilityService } from './ai-observability.service';
 import { PromptBuilderService } from './prompt-builder.service';
 import { ProviderHealthService } from './provider-health.service';
 import { RAGService } from './rag.service';
-import { EmbeddingsService, EmbeddingResult } from './embeddings.service';
-import { RAGDocument } from '../interfaces/ai.interface';
+import { EmbeddingsService } from './embeddings.service';
+import { EmbeddingResult, RAGDocument } from '../interfaces/ai.interface';
 import { AIRouterService as AIRouter } from './ai-router.service';
 
 @Injectable()

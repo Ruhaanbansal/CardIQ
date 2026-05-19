@@ -55,7 +55,7 @@ export class RewardsController {
 
   @HttpCode(HttpStatus.OK)
   @Post('fee-recovery')
-  async feeRecovery(
+  async calculateFeeRecovery(
     @Body() body: { cardId: string; monthlySpend: number; projectedAnnualRewards: number },
   ) {
     return this.feeRecovery.calculateFeeRecovery(
