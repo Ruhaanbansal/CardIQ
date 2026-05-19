@@ -1,18 +1,14 @@
-import withPWAInit from "@ducanh2912/next-pwa";
-
-const withPWA = withPWAInit({
-  dest: "public",
-  disable: process.env.NODE_ENV === "development",
-  register: true,
-  skipWaiting: true,
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cardiq.ai", "localhost"], // Add production image domains here
+    remotePatterns: [
+      { protocol: "https", hostname: "cardiq.ai" },
+      { protocol: "http", hostname: "localhost" },
+    ],
   },
+  // Needed to correctly generate standalone output for Docker
+  // output: "standalone", // Uncomment when deploying via Docker
 };
 
-export default withPWA(nextConfig);
+export default nextConfig;
