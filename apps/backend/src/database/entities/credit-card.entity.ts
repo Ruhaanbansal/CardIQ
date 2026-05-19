@@ -99,6 +99,9 @@ export class CreditCardEntity implements ICreditCard {
   @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
   minSalary?: number;
 
+  @Column({ type: 'decimal', precision: 12, scale: 2, nullable: true })
+  minMonthlyIncome?: number;
+
   @Column({ type: 'int', nullable: true })
   minCreditScore?: number;
 
@@ -129,4 +132,12 @@ export class CreditCardEntity implements ICreditCard {
   @Index()
   @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt?: Date;
+
+  // ── Computed aliases used by services ──────────────────────────
+  // These let optimizer/recommendation code use intuitive names
+  // without requiring DB migrations for new columns.
+  get cardName(): string { return this.name; }
+  get issuerName(): string { return this.bank?.name ?? ''; }
+  get cardTier(): string { return this.tier; }
+  get capHit(): number { return this.annualFee ?? 0; }
 }
