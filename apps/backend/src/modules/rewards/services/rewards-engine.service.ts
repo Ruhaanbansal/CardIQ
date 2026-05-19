@@ -93,6 +93,7 @@ export class RewardsEngineService {
           originalReward: computedReward,
           cappedReward: capResult.cappedReward,
           limitRemaining: capResult.limitRemaining,
+          capHit: true,
         };
         result.warnings.push('Reward was capped by card limits.');
         computedReward = capResult.cappedReward;

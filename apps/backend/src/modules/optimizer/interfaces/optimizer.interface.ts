@@ -53,6 +53,7 @@ export interface RankedCard {
     originalReward: number;
     cappedReward: number;
     limitRemaining: number;
+    capHit: boolean;
   };
 
   confidenceScore: number;

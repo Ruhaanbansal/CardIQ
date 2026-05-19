@@ -58,6 +58,7 @@ export interface RewardCalculationResult {
     originalReward: number;
     cappedReward: number;
     limitRemaining: number;
+    capHit: boolean;
   };
   
   milestoneProgress?: {
