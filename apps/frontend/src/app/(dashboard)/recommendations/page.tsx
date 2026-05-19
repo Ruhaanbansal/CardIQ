@@ -1,5 +1,9 @@
 import { AppShell } from '@/components/layout/AppShell';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function RecommendationsPage() {
   return (
     <AppShell>

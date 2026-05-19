@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

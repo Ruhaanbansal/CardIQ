@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { ComparisonTable } from '@/components/discovery/ComparisonTable';
 import { GlobalSearch } from '@/components/search/GlobalSearch';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 const mockCompareCards = [
   { id: '1', name: 'HDFC Millennia', bank: 'HDFC Bank', category: 'cashback', rewardRate: '5%', annualFee: 1000 },
   { id: '2', name: 'Cashback SBI Card', bank: 'SBI Card', category: 'cashback', rewardRate: '5%', annualFee: 999 },

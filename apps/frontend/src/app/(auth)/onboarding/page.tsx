@@ -5,6 +5,10 @@ import { useOnboardingStore } from '@/stores/onboardingStore';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Forms';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function OnboardingPage() {
   const { step, nextStep, prevStep, spendProfile, updateSpendProfile } = useOnboardingStore();
   const [mounted, setMounted] = React.useState(false);

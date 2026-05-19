@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { OptimizerInput } from '@/components/optimizer/OptimizerInput';
 import { OptimizationResultCard } from '@/components/optimizer/OptimizationResultCard';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function OptimizerPage() {
   return (
     <AppShell>

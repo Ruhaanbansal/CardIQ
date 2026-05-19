@@ -4,6 +4,10 @@ import { SavingsOverviewCard } from '@/components/dashboard/SavingsOverviewCard'
 import { RecentActivityFeed } from '@/components/dashboard/RecentActivityFeed';
 import { RecommendationPreview } from '@/components/ai/RecommendationPreview';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function DashboardHomePage() {
   return (
     <AppShell>

@@ -4,6 +4,10 @@ import { MessageComposer } from '@/components/ai/chat/MessageComposer';
 import { Sparkles, History } from 'lucide-react';
 import Link from 'next/link';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function CopilotHomePage() {
   return (
     <AppShell>

@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { AIInsightFeed } from '@/components/ai/trust/AIInsightFeed';
 import { Sparkles } from 'lucide-react';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function InsightsPage() {
   return (
     <AppShell>

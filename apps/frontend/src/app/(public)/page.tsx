@@ -3,6 +3,10 @@ import { TrustIndicators } from '@/components/public/TrustIndicators';
 import { QuickOptimizer } from '@/components/public/QuickOptimizer';
 import { AppShell } from '@/components/layout/AppShell';
 
+// Skip static pre-rendering — bypasses Next.js 15.3.x entryCSSFiles bug
+// with mixed server/client component pages
+export const dynamic = 'force-dynamic';
+
 export default function LandingPage() {
   return (
     <AppShell isPublic>

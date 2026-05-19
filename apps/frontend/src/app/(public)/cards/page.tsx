@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { FilterBar } from '@/components/discovery/FilterBar';
 import { CardGrid } from '@/components/discovery/CardGrid';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function CardsDiscoveryPage() {
   return (
     <AppShell isPublic>

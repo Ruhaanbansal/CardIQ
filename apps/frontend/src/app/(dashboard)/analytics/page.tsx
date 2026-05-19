@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { SpendBreakdownChart } from '@/components/analytics/SpendBreakdownChart';
 import { SavingsTrendChart } from '@/components/analytics/SavingsTrendChart';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function AnalyticsPage() {
   return (
     <AppShell>

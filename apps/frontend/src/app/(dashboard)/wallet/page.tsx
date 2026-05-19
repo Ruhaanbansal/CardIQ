@@ -2,6 +2,10 @@ import { AppShell } from '@/components/layout/AppShell';
 import { WalletGrid } from '@/components/wallet/WalletGrid';
 import { FeeTracker } from '@/components/wallet/FeeTracker';
 
+// Force dynamic rendering to bypass Next.js 15.3.x static prerender bug
+export const dynamic = 'force-dynamic';
+
+
 export default function WalletPage() {
   return (
     <AppShell>
