@@ -26,9 +26,21 @@ async function bootstrap() {
   }));
 
   // Security Hardening: CORS configuration
+  const allowedOrigins = [
+    process.env.FRONTEND_URL,           // Your Vercel URL (set in Railway env vars)
+    'http://localhost:3000',            // Local dev
+  ].filter(Boolean);
+
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://cardiq.ai' : '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, etc)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        return callback(null, true);
+      }
+      callback(new Error('Not allowed by CORS'));
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
 
