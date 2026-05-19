@@ -50,6 +50,7 @@ export interface RankedCard {
 
   capImpact?: {
     capType: string;
+    capHit: boolean;
     originalReward: number;
     cappedReward: number;
     limitRemaining: number;
