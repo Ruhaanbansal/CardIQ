@@ -23,6 +23,9 @@ RUN pnpm install --frozen-lockfile
 # Build the backend
 RUN pnpm --filter @cardiq/backend run build
 
+# Deploy the backend into an isolated folder (creates a standalone app with its prod dependencies)
+RUN pnpm --filter @cardiq/backend deploy --prod /app/prod-backend
+
 # ─── Stage 2: Production ──────────────────────────────────────────
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -36,10 +39,8 @@ RUN apk --no-cache add curl
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nestjs
 
-# Copy built output
-COPY --from=builder --chown=nestjs:nodejs /app/apps/backend/dist ./dist
-COPY --from=builder --chown=nestjs:nodejs /app/apps/backend/package.json ./package.json
-COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
+# Copy the deployed isolated backend from builder
+COPY --from=builder --chown=nestjs:nodejs /app/prod-backend ./
 
 USER nestjs
 
